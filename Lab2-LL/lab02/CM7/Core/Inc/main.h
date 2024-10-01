@@ -66,22 +66,22 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define right_Pin LL_GPIO_PIN_5
-#define right_GPIO_Port GPIOK
-#define left_Pin LL_GPIO_PIN_4
-#define left_GPIO_Port GPIOK
-#define up_Pin LL_GPIO_PIN_6
-#define up_GPIO_Port GPIOK
-#define down_Pin LL_GPIO_PIN_3
-#define down_GPIO_Port GPIOK
+#define JRIGHT_Pin LL_GPIO_PIN_5
+#define JRIGHT_GPIO_Port GPIOK
+#define JLEFT_Pin LL_GPIO_PIN_4
+#define JLEFT_GPIO_Port GPIOK
+#define JUP_Pin LL_GPIO_PIN_6
+#define JUP_GPIO_Port GPIOK
+#define JDOWN_Pin LL_GPIO_PIN_3
+#define JDOWN_GPIO_Port GPIOK
 #define a0_Pin LL_GPIO_PIN_12
 #define a0_GPIO_Port GPIOI
 #define a1_Pin LL_GPIO_PIN_13
 #define a1_GPIO_Port GPIOI
 #define a2_Pin LL_GPIO_PIN_14
 #define a2_GPIO_Port GPIOI
-#define select_Pin LL_GPIO_PIN_2
-#define select_GPIO_Port GPIOK
+#define JSEL_Pin LL_GPIO_PIN_2
+#define JSEL_GPIO_Port GPIOK
 #define a3_Pin LL_GPIO_PIN_15
 #define a3_GPIO_Port GPIOI
 

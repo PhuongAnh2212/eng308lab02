@@ -98,32 +98,19 @@ void toggle_a3() {
     a3_state = !a3_state;
 }
 
-void update_led_states(void)
-{
-	if (a0_state == 0) {
-	    LL_GPIO_SetOutputPin(GPIOI, a0_Pin);    // Set to HIGH
-	} else {
-	    LL_GPIO_ResetOutputPin(GPIOI, a0_Pin);  // Set to LOW
-	}
+void update_led_states(void) {
+    uint32_t pins[] = {a0_Pin, a1_Pin, a2_Pin, a3_Pin};
+    int states[] = {a0_state, a1_state, a2_state, a3_state};
 
-	if (a1_state == 0) {
-	    LL_GPIO_SetOutputPin(GPIOI, a1_Pin);    // Set to HIGH
-	} else {
-	    LL_GPIO_ResetOutputPin(GPIOI, a1_Pin);  // Set to LOW
-	}
-
-	if (a2_state == 0) {
-	    LL_GPIO_SetOutputPin(GPIOI, a2_Pin);    // Set to HIGH
-	} else {
-	    LL_GPIO_ResetOutputPin(GPIOI, a2_Pin);  // Set to LOW
-	}
-
-	if (a3_state == 0) {
-	    LL_GPIO_SetOutputPin(GPIOI, a3_Pin);    // Set to HIGH
-	} else {
-	    LL_GPIO_ResetOutputPin(GPIOI, a3_Pin);  // Set to LOW
-	}
+    for (int i = 0; i < 4; i++) {
+        if (states[i] == 0) {
+            LL_GPIO_SetOutputPin(GPIOI, pins[i]);
+        } else {
+            LL_GPIO_ResetOutputPin(GPIOI, pins[i]);
+        }
+    }
 }
+
 void update_input_states()
 {
 	up_last_state = up_current_state;
@@ -131,6 +118,7 @@ void update_input_states()
 	left_last_state = left_current_state;
 	right_last_state = right_current_state;
 }
+
 void initialize_leds(void)
 {
 	leds_locked = 0;
@@ -141,7 +129,7 @@ void initialize_leds(void)
 	update_led_states();
 }
 
-void turn_off_all_leds(void)
+void turn_off_all(void)
 {
 	a0_state = 0;
 	a1_state = 0;
@@ -152,11 +140,11 @@ void turn_off_all_leds(void)
 
 void initialize_inputs(void)
 {
-    up_current_state = LL_GPIO_IsInputPinSet(GPIOK, up_Pin);
-    down_current_state = LL_GPIO_IsInputPinSet(GPIOK, down_Pin);
-    left_current_state = LL_GPIO_IsInputPinSet(GPIOK, left_Pin);
-    right_current_state = LL_GPIO_IsInputPinSet(GPIOK, right_Pin);
-    select_current_state = LL_GPIO_IsInputPinSet(GPIOK, select_Pin);
+    up_current_state = LL_GPIO_IsInputPinSet(GPIOK, JUP_Pin);
+    down_current_state = LL_GPIO_IsInputPinSet(GPIOK, JDOWN_Pin);
+    left_current_state = LL_GPIO_IsInputPinSet(GPIOK, JLEFT_Pin);
+    right_current_state = LL_GPIO_IsInputPinSet(GPIOK, JRIGHT_Pin);
+    select_current_state = LL_GPIO_IsInputPinSet(GPIOK, JSEL_Pin);
 }
 void handle_input(void)
 {
@@ -288,7 +276,7 @@ Error_Handler();
   /* USER CODE BEGIN 2 */
   reset_leds();
   initialize_leds();
-  turn_off_all_leds();
+  turn_off_all();
   lock_leds();
   /* USER CODE END 2 */
 
@@ -299,11 +287,11 @@ Error_Handler();
     /* USER CODE END WHILE */
 	  handle_input();
 
-	 	  select_current_state = LL_GPIO_IsInputPinSet(GPIOK, select_Pin);
+	 	  select_current_state = LL_GPIO_IsInputPinSet(GPIOK, JSEL_Pin);
 	 	  if (select_last_state == GPIO_PIN_RESET && select_current_state == GPIO_PIN_SET) {
 	 		  if (select_off == 0)
 	 		  {
-	 			  turn_off_all_leds();
+	 			  turn_off_all();
 	 			  select_off = 1;
 	 		  } else if (select_off == 1)
 	 		  {
@@ -400,8 +388,8 @@ static void MX_GPIO_Init(void)
   LL_GPIO_ResetOutputPin(GPIOI, a0_Pin|a1_Pin|a2_Pin|a3_Pin);
 
   /**/
-  GPIO_InitStruct.Pin = right_Pin|left_Pin|up_Pin|down_Pin
-                          |select_Pin;
+  GPIO_InitStruct.Pin = JRIGHT_Pin|JLEFT_Pin|JUP_Pin|JDOWN_Pin
+                          |JSEL_Pin;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
   LL_GPIO_Init(GPIOK, &GPIO_InitStruct);
