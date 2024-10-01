@@ -150,6 +150,36 @@ void turn_off_all_leds(void)
 	update_led_states();
 }
 
+// #define LED_COUNT 4  // Number of LEDs
+// int led_states[LED_COUNT] = {0, 0, 1, 0};  // Initial states for LEDs
+
+// void update_led_states(void) {
+    // Assuming the pins are defined as a0_Pin, a1_Pin, a2_Pin, a3_Pin
+    // LL_GPIO_SetOutputPin(GPIOI, led_states[0] ? a0_Pin : LL_GPIO_PIN_RESET);
+    // LL_GPIO_SetOutputPin(GPIOI, led_states[1] ? a1_Pin : LL_GPIO_PIN_RESET);
+    // LL_GPIO_SetOutputPin(GPIOI, led_states[2] ? a2_Pin : LL_GPIO_PIN_RESET);
+    // LL_GPIO_SetOutputPin(GPIOI, led_states[3] ? a3_Pin : LL_GPIO_PIN_RESET);
+// }
+
+// void initialize_leds(void) {
+    // leds_locked = 0;
+    // Set the initial state of the LEDs
+    // led_states[0] = 0; // a0_state
+    // led_states[1] = 0; // a1_state
+    // led_states[2] = 1; // a2_state
+    // led_states[3] = 0; // a3_state
+    // update_led_states();
+// }
+
+// void turn_off_all_leds(void) {
+    // Set all LED states to 0
+    // for (int i = 0; i < LED_COUNT; i++) {
+        // led_states[i] = 0;
+    // }
+    // update_led_states();
+// }
+
+
 void initialize_inputs(void)
 {
 	up_current_state = HAL_GPIO_ReadPin(GPIOK, up_Pin);
